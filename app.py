@@ -61,81 +61,59 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
 
-class Producto(db.Model):  # Producto hereda de db.Model
+class Sumario(db.Model):
     """
-    Definición de la tabla Producto en la base de datos.
-    La clase Producto hereda de db.Model.
-    Esta clase representa la tabla "Producto" en la base de datos.
+    Definición de la tabla Sumario en la base de datos.
+    La clase Sumario hereda de db.Model.
+    Esta clase representa la tabla "Sumario" en la base de datos.
     """
 
     id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(100))
-    precio = db.Column(db.Integer)
-    stock = db.Column(db.Integer)
-    imagen = db.Column(db.String(400))
+    autor = db.Column(db.String(50))
+    titulo = db.Column(db.String(150))
+    numero = db.Column(db.Integer, default=0)
+    mes = db.Column(db.String(25), nullable=False)
+    anio = db.Column(db.SmallInteger, nullable=False)
 
-    def __init__(self, nombre, precio, stock, imagen):
+    def __init__(self, autor, titulo, numero, mes, anio):
         """
-        Constructor de la clase Producto.
+        Constructor de la clase Sumario.
 
         Args:
-            nombre (str): Nombre del producto.
-            precio (int): Precio del producto.
-            stock (int): Cantidad en stock del producto.
-            imagen (str): URL o ruta de la imagen del producto.
+            autor (str):
+            titulo (str):
+            numero (int):
+            mes (str):
+            anio (int) :
         """
-        self.nombre = nombre
-        self.precio = precio
-        self.stock = stock
-        self.imagen = imagen
-
-    # Se pueden agregar más clases para definir otras tablas en la base de datos
-
-
-class Libro(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    titulo = db.Column(db.String(100))
-    autor = db.Column(db.String(50))
-    isbn = db.Column(db.String(13))
-    status = db.Column(db.Boolean, default=False)
-
-    def __init__(self, titulo, autor, isbn, status):
-        self.titulo = titulo
         self.autor = autor
-        self.isbn = isbn
-        self.status = status
+        self.titulo = titulo
+        self.numero = numero
+        self.mes = mes
+        self.anio = anio
 
 
 with app.app_context():
     db.create_all()  # Crea todas las tablas en la base de datos
 
 
-# Definición del esquema para la clase Producto
-class ProductoSchema(ma.Schema):
+# Definición del esquema para la clase Sumario
+class SumarioSchema(ma.Schema):
     """
-    Esquema de la clase Producto.
+    Esquema de la clase Sumario.
 
     Este esquema define los campos que serán serializados/deserializados
-    para la clase Producto.
+    para la clase Sumario.
     """
 
     class Meta:
-        fields = ("id", "nombre", "precio", "stock", "imagen")
+        fields = ("id", "autor", "titulo", "numero", "mes", "anio")
 
 
-producto_schema = ProductoSchema()  # Objeto para serializar/deserializar un producto
-productos_schema = ProductoSchema(
+sumario_schema = SumarioSchema()  # Objeto para serializar/deserializar un producto
+sumarios_schema = SumarioSchema(
     many=True
 )  # Objeto para serializar/deserializar múltiples productos
-
-
-class LibroSchema(ma.Schema):
-    class Meta:
-        fields = ("id", "autor", "titulo", "isbn", "status")
-
-
-libro_schema = LibroSchema()
-libros_schema = LibroSchema(many=True)
 
 """
 Este código define un endpoint que permite obtener todos los productos de la base de datos y los devuelve como un JSON en respuesta a una solicitud GET a la ruta /productos.
@@ -148,18 +126,18 @@ return jsonify(result): El resultado serializado en formato JSON se devuelve com
 """
 
 
-@app.route("/productos", methods=["GET"])
-def get_Productos():
+@app.route("/sumario", methods=["GET"])
+def get_Sumarios():
     """
     Endpoint para obtener todos los productos de la base de datos.
 
     Retorna un JSON con todos los registros de la tabla de productos.
     """
-    all_productos = (
-        Producto.query.all()
+    all_sumarios = (
+        Sumario.query.all()
     )  # Obtiene todos los registros de la tabla de productos
-    result = productos_schema.dump(
-        all_productos
+    result = sumarios_schema.dump(
+        all_sumarios
     )  # Serializa los registros en formato JSON
     return jsonify(result)  # Retorna el JSON de todos los registros de la tabla
 
@@ -185,100 +163,87 @@ update_producto(id):
 """
 
 
-@app.route("/productos/<id>", methods=["GET"])
-def get_producto(id):
+@app.route("/sumario/<id>", methods=["GET"])
+def get_sumario(id):
     """
     Endpoint para obtener un producto específico de la base de datos.
 
     Retorna un JSON con la información del producto correspondiente al ID proporcionado.
     """
-    producto = Producto.query.get(
+    sumario = Sumario.query.get(
         id
     )  # Obtiene el producto correspondiente al ID recibido
-    return producto_schema.jsonify(producto)  # Retorna el JSON del producto
+    return sumario_schema.jsonify(sumario)  # Retorna el JSON del producto
 
 
-@app.route("/productos/<id>", methods=["DELETE"])
-def delete_producto(id):
+@app.route("/sumario/<id>", methods=["DELETE"])
+def delete_sumario(id):
     """
     Endpoint para eliminar un producto de la base de datos.
 
     Elimina el producto correspondiente al ID proporcionado y retorna un JSON con el registro eliminado.
     """
-    producto = Producto.query.get(
+    sumario = Sumario.query.get(
         id
     )  # Obtiene el producto correspondiente al ID recibido
-    db.session.delete(producto)  # Elimina el producto de la sesión de la base de datos
+    db.session.delete(sumario)  # Elimina el producto de la sesión de la base de datos
     db.session.commit()  # Guarda los cambios en la base de datos
-    return producto_schema.jsonify(producto)  # Retorna el JSON del producto eliminado
+    return sumario_schema.jsonify(sumario)  # Retorna el JSON del producto eliminado
 
 
-@app.route("/productos", methods=["POST"])  # Endpoint para crear un producto
-def create_producto():
+@app.route("/sumario", methods=["POST"])  # Endpoint para crear un producto
+def create_sumario():
     """
     Endpoint para crear un nuevo producto en la base de datos.
 
     Lee los datos proporcionados en formato JSON por el cliente y crea un nuevo registro de producto en la base de datos.
     Retorna un JSON con el nuevo producto creado.
     """
-    nombre = request.json[
-        "nombre"
+    autor = request.json[
+        "autor"
     ]  # Obtiene el nombre del producto del JSON proporcionado
-    precio = request.json[
-        "precio"
+    titulo = request.json[
+        "titulo"
     ]  # Obtiene el precio del producto del JSON proporcionado
-    stock = request.json[
-        "stock"
+    numero = request.json[
+        "numero"
     ]  # Obtiene el stock del producto del JSON proporcionado
-    imagen = request.json[
-        "imagen"
-    ]  # Obtiene la imagen del producto del JSON proporcionado
-    new_producto = Producto(
-        nombre, precio, stock, imagen
+    mes = request.json["mes"]  # Obtiene la imagen del producto del JSON proporcionado
+    anio = request.json["anio"]  # Obtiene la imagen del producto del JSON proporcionado
+
+    new_sumario = Sumario(
+        autor, titulo, numero, mes, anio
     )  # Crea un nuevo objeto Producto con los datos proporcionados
     db.session.add(
-        new_producto
+        new_sumario
     )  # Agrega el nuevo producto a la sesión de la base de datos
     db.session.commit()  # Guarda los cambios en la base de datos
-    return producto_schema.jsonify(
-        new_producto
+    return sumario_schema.jsonify(
+        new_sumario
     )  # Retorna el JSON del nuevo producto creado
 
 
-@app.route("/productos/<id>", methods=["PUT"])  # Endpoint para actualizar un producto
-def update_producto(id):
+@app.route("/sumario/<id>", methods=["PUT"])  # Endpoint para actualizar un producto
+def update_sumario(id):
     """
     Endpoint para actualizar un producto existente en la base de datos.
 
     Lee los datos proporcionados en formato JSON por el cliente y actualiza el registro del producto con el ID especificado.
     Retorna un JSON con el producto actualizado.
     """
-    producto = Producto.query.get(
+    sumario = Sumario.query.get(
         id
     )  # Obtiene el producto existente con el ID especificado
 
     # Actualiza los atributos del producto con los datos proporcionados en el JSON
-    producto.nombre = request.json["nombre"]
-    producto.precio = request.json["precio"]
-    producto.stock = request.json["stock"]
-    producto.imagen = request.json["imagen"]
+    sumario.autor = request.json["autor"]
+    sumario.titulo = request.json["titulo"]
+    sumario.numero = request.json["numero"]
+    sumario.mes = request.json["mes"]
+    sumario.anio = request.json["anio"]
 
     db.session.commit()  # Guarda los cambios en la base de datos
-    return producto_schema.jsonify(producto)  # Retorna el JSON del producto actualizado
-
-
-@app.route("/libros", methods=["GET"])
-def get_Libros():
-    """
-    Endpoint para obtener todos los productos de la base de datos.
-
-    Retorna un JSON con todos los registros de la tabla de productos.
-    """
-    all_libros = (
-        Libro.query.all()
-    )  # Obtiene todos los registros de la tabla de productos
-    result = libros_schema.dump(all_libros)  # Serializa los registros en formato JSON
-    return jsonify(result)  # Retorna el JSON de todos los registros de la tabla
+    return sumario_schema.jsonify(sumario)  # Retorna el JSON del producto actualizado
 
 
 """

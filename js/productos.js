@@ -2,18 +2,19 @@ const { createApp } = Vue
 createApp({
 data() {
 return {
-productos:[],
-//url:'http://localhost:5000/productos',
+sumarios:[],
+url:'http://127.0.0.1:5000/sumario',
 // si el backend esta corriendo local usar localhost 5000(si no lo subieron a pythonanywhere)
-url:'https://alopez.pythonanywhere.com/productos', // si ya lo subieron a pythonanywhere
+//url:'https://alopez.pythonanywhere.com/productos', // si ya lo subieron a pythonanywhere
 error:false,
 cargando:true,
 /*atributos para el guardar los valores del formulario */
 id:0,
-nombre:"",
-imagen:"",
-stock:0,
-precio:0,
+autor:"",
+titulo:"",
+numero: 0,
+mes:"",
+anio:0,
 }
 },
 methods: {
@@ -21,7 +22,7 @@ fetchData(url) {
 fetch(url)
 .then(response => response.json())
 .then(data => {
-this.productos = data;
+this.sumarios = data,
 this.cargando=false
 })
 .catch(err => {
@@ -29,8 +30,8 @@ console.error(err);
 this.error=true
 })
 },
-eliminar(producto) {
-const url = this.url+'/' + producto;
+eliminar(sumario) {
+const url = this.url+'/' + sumario;
 var options = {
 method: 'DELETE',
 }
@@ -41,14 +42,15 @@ location.reload();
 })
 },
 grabar(){
-let producto = {
-nombre:this.nombre,
-precio: this.precio,
-stock: this.stock,
-imagen:this.imagen
+let sumario = {
+autor: this.autor,
+titulo: this.titulo,
+numero: this.numero,
+mes: this.mes,
+anio: this.anio
 }
 var options = {
-body:JSON.stringify(producto),
+body:JSON.stringify(sumario),
 method: 'POST',
 headers: { 'Content-Type': 'application/json' },
 redirect: 'follow'

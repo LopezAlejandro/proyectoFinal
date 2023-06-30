@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>Control de bibliotecas</title>
+<title>Sumarios de Nuestra Arquitectura</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -14,7 +14,7 @@ crossorigin="anonymous">
 </header>
 <main>
 <div id="app" class="container">
-<h1>Productos</h1>
+<h1>Sumarios</h1>
 <br>
 <a class="btn btn-primary" href="../templates/producto_nuevo.html">Nuevo</a>
 <br><br>
@@ -32,25 +32,25 @@ crossorigin="anonymous">
 <thead>
 <tr>
 <th scope="col">Id</th>
-<th scope="col">Nombre</th>
-<th scope="col">Precio</th>
-<th scope="col">Stock</th>
-<th scope="col">Imagen</th>
+<th scope="col">Autor</th>
+<th scope="col">Titulo</th>
+<th scope="col">Número</th>
+<th scope="col">Mes</th>
+<th scope="col">Año</th>
 <th scope="col">Acciones</th>
 </tr>
 </thead>
 <tbody>
-<tr class="" v-for="producto in productos">
-<td scope="row">{{producto.id}}</td>
-<td>{{producto.nombre}}</td>
-<td>{{producto.precio}}</td>
-<td>{{producto.stock}}</td>
+<tr class="" v-for="sumario in sumarios">
+<td scope="row">{{sumario.id}}</td>
+<td>{{sumario.autor}}</td>
+<td>{{sumario.titulo}}</td>
+<td>{{sumario.numero}}</td>
+<td>{{sumario.mes}}</td>
+<td>{{sumario.anio}}</td>
 <td>
-<img width="60" :src="producto.imagen" :alt="producto.nombre">
-</td>
-<td>
-<a class="btn btn-primary" :href="'./producto_update.html?id='+ producto.id" >Editar</a>
-<button type="button" class="btn btn-danger" v-on:click="eliminar(producto.id)" >Eliminar</button>
+<a class="btn btn-primary" :href="'./producto_update.html?id='+ sumario.id" >Editar</a>
+<button type="button" class="btn btn-danger" v-on:click="eliminar(sumario.id)" >Eliminar</button>
 </td>
 </tr>
 </tbody>

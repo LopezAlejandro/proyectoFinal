@@ -5,12 +5,14 @@ const { createApp } = Vue
 createApp({
 data() {
 return {
-id:0,
-nombre:"",
-imagen:"",
-stock:0,
-precio:0,
-url:'https://alopez.pythonanywhere.com/productos/'+id,
+//id:0,
+autor: "",
+titulo: "",
+numero: 0,
+mes: "",
+anio:0,
+//url: 'https://alopez.pythonanywhere.com/productos/' + id,
+url:'http://localhost:5000/sumario/'+id,
 }
 },
 methods: {
@@ -21,10 +23,11 @@ fetch(url)
 
 console.log(data)
 this.id=data.id
-this.nombre = data.nombre;
-this.imagen=data.imagen
-this.stock=data.stock
-this.precio=data.precio
+this.autor = data.autor
+this.titulo=data.titulo
+this.numero=data.numero
+this.mes=data.mes
+this.anio=data.anio    
 })
 .catch(err => {
 console.error(err);
@@ -32,14 +35,15 @@ this.error=true
 })
 },
 modificar() {
-let producto = {
-nombre:this.nombre,
-precio: this.precio,
-stock: this.stock,
-imagen:this.imagen
+let sumario = {
+autor: this.autor,
+titulo: this.titulo,
+numero: this.numero,
+mes: this.mes,
+anio: this.anio,
 }
 var options = {
-body: JSON.stringify(producto),
+body: JSON.stringify(sumario),
 method: 'PUT',
 headers: { 'Content-Type': 'application/json' },
 redirect: 'follow'
