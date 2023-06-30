@@ -245,6 +245,19 @@ def update_sumario(id):
     db.session.commit()  # Guarda los cambios en la base de datos
     return sumario_schema.jsonify(sumario)  # Retorna el JSON del producto actualizado
 
+@app.route("/sumario_a/", methods=["GET"])
+def get_sumarios_autor():
+    """
+    Endpoint para obtener un producto específico de la base de datos.
+
+    Retorna un JSON con la información del producto correspondiente al ID proporcionado.
+    """
+    autor_sumarios = db.session.execute(db.select(Sumario).where(Sumario.autor.ilike('ale')))
+
+    #(Sumario.query.filter_by(autor=autor).all)
+    result = sumarios_schema.dump(autor_sumarios)
+         # Obtiene el producto correspondiente al ID recibido
+    return jsonify(result)  # Retorna el JSON del producto
 
 """
 Este código es el programa principal de la aplicación Flask. Se verifica si el archivo actual está siendo ejecutado directamente y no importado como módulo. Luego, se inicia el servidor Flask en el puerto 5000 con el modo de depuración habilitado. Esto permite ejecutar la aplicación y realizar pruebas mientras se muestra información adicional de depuración en caso de errores.
