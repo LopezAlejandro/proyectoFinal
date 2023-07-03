@@ -247,17 +247,31 @@ def update_sumario(id):
     db.session.commit()  # Guarda los cambios en la base de datos
     return sumario_schema.jsonify(sumario)  # Retorna el JSON del producto actualizado
 
-@app.route("/sumario_a/", methods=["GET"])
-def get_sumarios_autor():
+@app.route("/sumario_a/<autor>", methods=["GET"])
+def get_sumarios_autor(autor):
     """
     Endpoint para obtener un producto específico de la base de datos.
 
     Retorna un JSON con la información del producto correspondiente al ID proporcionado.
     """
     #autor_sumarios = db.session.execute(db.select(Sumario).where(Sumario.autor.ilike('ale')))
-    autor_sumarios = Sumario.query.filter(Sumario.autor.ilike('%alberto%'))
+    autor_sumarios = Sumario.query.filter(Sumario.autor.ilike('%'+autor+'%'))
     #(Sumario.query.filter_by(autor=autor).all)
     result = sumarios_schema.dump(autor_sumarios)
+         # Obtiene el producto correspondiente al ID recibido
+    return jsonify(result)  # Retorna el JSON del producto
+
+@app.route("/sumario_t/<titulo>", methods=["GET"])
+def get_sumarios_titulo(titulo):
+    """
+    Endpoint para obtener un producto específico de la base de datos.
+
+    Retorna un JSON con la información del producto correspondiente al ID proporcionado.
+    """
+    #autor_sumarios = db.session.execute(db.select(Sumario).where(Sumario.autor.ilike('ale')))
+    titulo_sumarios = Sumario.query.filter(Sumario.titulo.ilike('%'+titulo+'%'))
+    #(Sumario.query.filter_by(autor=autor).all)
+    result = sumarios_schema.dump(titulo_sumarios)
          # Obtiene el producto correspondiente al ID recibido
     return jsonify(result)  # Retorna el JSON del producto
 
