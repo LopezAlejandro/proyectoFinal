@@ -11,7 +11,7 @@ titulo: "",
 numero: 0,
 mes: "",
 anio:0,
-//url: 'https://alopez.pythonanywhere.com/productos/' + id,
+//url: 'https://alopez.pythonanywhere.com/sumario/' + id,
 url:'http://localhost:5000/sumario/'+id,
 }
 },

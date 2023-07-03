@@ -7,7 +7,7 @@ createApp({
       searchTerm: "",
       searchField: "autor",
       // si el backend esta corriendo local usar localhost 5000(si no lo subieron a pythonanywhere)
-      //url:'https://alopez.pythonanywhere.com/productos', // si ya lo subieron a pythonanywhere
+      //url:'https://alopez.pythonanywhere.com/', // si ya lo subieron a pythonanywhere
     };
   },
   methods: {
@@ -20,9 +20,9 @@ createApp({
       }    
       
           if (this.searchField == "autor") {
-        this.url = "http://127.0.0.1:5000/sumario_a/";
+        this.url = "https://alopez.pythonanywhere.com/sumario_a/";
       } else {
-        this.url = "http://127.0.0.1:5000/sumario_t/";
+        this.url = "https://alopez.pythonanywhere.com/sumario_t/";
       }
           
       try {
