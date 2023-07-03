@@ -25,14 +25,15 @@
         <br /><br />
         <input type="text" v-model="searchTerm" placeholder="Buscar" />
         <button @click="search">Buscar</button>
-
+        <br><br>
         <label>
             <input type="radio" value="autor" v-model="searchField" /> Buscar por autor
         </label>
+        <br>
         <label>
             <input type="radio" value="titulo" v-model="searchField" /> Buscar por titulo
         </label>
-        
+        <br><br>
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead>
