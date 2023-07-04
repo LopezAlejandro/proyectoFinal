@@ -7,12 +7,24 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+    <!-- <link rel="stylesheet" href="../css/normalize.css" /> -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="../css/estilo.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0
+      rel="stylesheet"
+    />  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script
+      src="https://kit.fontawesome.com/324dfb2411.js"
+      crossorigin="anonymous"
+    ></script>
+
   </head>
 
   <body>
@@ -20,65 +32,111 @@
       <!-- place navbar here -->
     </header>
     <main>
-      <div id="app" class="container">
+      <div id="app" class="container-fluid">
         <h1>Busqueda en Nuestra Arquitectura</h1>
         <br /><br />
-        <input type="text" v-model="searchTerm" placeholder="Buscar" />
-        <button @click="search">Buscar</button>
-        <br><br>
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            v-model="searchTerm"
+            placeholder="Buscar"
+          />
+          <button
+            @click="search"
+            class="btn btn-outline-secondary"
+            type="button"
+            id="button-addon2"
+          >
+            Buscar
+          </button>
+        </div>
+        <br /><br />
         <label>
-            <input type="radio" value="autor" v-model="searchField" /> Buscar por autor
+          <input type="radio" value="autor" v-model="searchField" /> Buscar por
+          autor
         </label>
-        <br>
+        <br />
         <label>
-            <input type="radio" value="titulo" v-model="searchField" /> Buscar por titulo
+          <input type="radio" value="titulo" v-model="searchField" /> Buscar por
+          titulo
         </label>
-        <br><br>
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Autor</th>
-                <th scope="col">Titulo</th>
-                <th scope="col">Número</th>
-                <th scope="col">Mes</th>
-                <th scope="col">Año</th>
-                <th scope="col">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr class="" v-for="sumario in sumarios">
-                <td scope="row">{{sumario.id}}</td>
-                <td>{{sumario.autor}}</td>
-                <td>{{sumario.titulo}}</td>
-                <td>{{sumario.numero}}</td>
-                <td>{{sumario.mes}}</td>
-                <td>{{sumario.anio}}</td>
-                <td>
-                  <a
-                    class="btn btn-primary"
-                    :href="'./producto_update.html?id='+ sumario.id"
-                    >Editar</a
-                  >
-                  <button
-                    type="button"
-                    class="btn btn-danger"
-                    v-on:click="eliminar(sumario.id)"
-                  >
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          
+        <br /><br />
+        <div class="container mt-4">
+          <template v-if="sumarios.length==0 && searchF">
+            <p>No hay resultados</p>
+          </template>
+          <div v-else="sumarios.length >0">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered table-hover">
+                <thead class="table-dark">
+                  <tr>
+                    <th scope="col" class="col-sm-1">Id</th>
+                    <th scope="col" class="col-sm-2">Autor</th>
+                    <th scope="col" class="col-sm-5">Titulo</th>
+                    <th scope="col" class="col-sm-1">Número</th>
+                    <th scope="col" class="col-sm-1">Mes</th>
+                    <th scope="col" class="col-sm-1">Año</th>
+                    <th scope="col" class="col-sm-1">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="" v-for="sumario in sumarios">
+                    <td scope="row">{{sumario.id}}</td>
+                    <td>{{sumario.autor}}</td>
+                    <td>{{sumario.titulo}}</td>
+                    <td>{{sumario.numero}}</td>
+                    <td>{{sumario.mes}}</td>
+                    <td>{{sumario.anio}}</td>
+                    <td>
+                      <a class="btn btn-primary btn-sm" 
+                        :href="'./producto_update.html?id='+ sumario.id" role="button">
+                        <i class="bi bi-pencil-square"></i>
+                      </a>
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-sm"
+                        v-on:click="eliminar(sumario.id)">
+                        <i class="bi bi-trash3-fill"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </main>
+    <br><br>
     <footer>
-      <!-- place footer here -->
+          <div class="footer-dark">
+        <footer>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6 item text">
+                        <h3>Centro de Documentación - Biblioteca.</h3>
+                        <p>"Prof.Arq. Manuel Ignacio Net"</p>
+                        <p>Facultad de Arquitectura, Diseño y Urbanismo (FADU)</p>
+                        <p>Ciudad Universitaria Pabellón 3 Planta Baja</p>
+                    </div>
+                    <div class="col-sm-6 col-md-3 item">
+                    </div>
+                    <div class="col-sm-6 col-md-3 item">
+                    </div>
+                    
+                    <div class="col item social">
+                      <a href="https://www.facebook.com" target="_blank"><i class="fa fa-facebook"></i></a>
+                      <a href="https://www.twitter.com" target="_blank"><i class="fa fa-twitter"></i></a>
+                      <a href="https://www.instagram.com" target="_blank"><i class="fa-brands fa-square-instagram"></i></a>
+                    </div>
+                </div>
+                
+            </div>
+        </footer>
+    </div>
     </footer>
+    
     <script>
       <!--Link de Bootstrap-->
       src =
