@@ -30,9 +30,7 @@
     <main>
       <div id="app" class="container">
         <h1>Sumarios</h1>
-        <!-- <a class="btn btn-primary" href="../templates/producto_nuevo.html"
-          >Nuevo</a
-        > -->
+       
         <br /><br />
         <div v-if="error">
           <p>Lo sentimos , ........</p>
@@ -86,48 +84,10 @@
                   </tbody>
                 </table>
               </div>
-              <!-- </div> -->
+             
             </div>
 
-            <!-- <div class="table-responsive">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Autor</th>
-                    <th scope="col">Titulo</th>
-                    <th scope="col">Número</th>
-                    <th scope="col">Mes</th>
-                    <th scope="col">Año</th>
-                    <th scope="col">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="" v-for="sumario in sumarios">
-                    <td scope="row">{{sumario.id}}</td>
-                    <td>{{sumario.autor}}</td>
-                    <td>{{sumario.titulo}}</td>
-                    <td>{{sumario.numero}}</td>
-                    <td>{{sumario.mes}}</td>
-                    <td>{{sumario.anio}}</td>
-                    <td>
-                      <a
-                        class="btn btn-primary"
-                        :href="'./producto_update.html?id='+ sumario.id"
-                        >Editar</a
-                      >
-                      <button
-                        type="button"
-                        class="btn btn-danger"
-                        v-on:click="eliminar(sumario.id)"
-                      >
-                        Eliminar
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div> -->
+            
           </section>
         </div>
       </div>
