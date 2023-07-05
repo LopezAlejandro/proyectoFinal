@@ -7,7 +7,7 @@ createApp({
       searchTerm: "",
       searchField: "autor",
       searchF: false,
-      // si el backend esta corriendo local usar localhost 5000(si no lo subieron a pythonanywhere)
+      // si el backend esta corriendo local usar localhost 5000
       //url:'https://alopez.pythonanywhere.com/', // si ya lo subieron a pythonanywhere
     };
   },
@@ -39,6 +39,17 @@ createApp({
       } catch (error) {
         console.error("Error al buscar:", error);
       }
+    },
+    eliminar(sumario) {
+      const url = "https://alopez.pythonanywhere.com/sumario/" + sumario;
+      var options = {
+        method: "DELETE",
+      };
+      fetch(url, options)
+        .then((res) => res.text()) // or res.json()
+        .then((res) => {
+          location.reload();
+        });
     },
   },
 }).mount("#app");

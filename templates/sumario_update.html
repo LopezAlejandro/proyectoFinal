@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <title>Producto Nuevo</title>
+    <title>Nuestra Arquitectura - Modificación</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -22,73 +22,6 @@
     </header>
     <main>
       <div class="container" id="app">
-        <!-- <form>
-          <h2>Editar Sumario</h2>
-          <br />
-
-          <div class="form-group">
-            <label for="autor">Autor:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="autor"
-              name="autor"
-              v-model="autor"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="titulo">Título:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="titulo"
-              name="titulo"
-              v-model="titulo"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="numero">Número:</label>
-            <input
-              type="number"
-              class="form-control"
-              id="numero"
-              name="numero"
-              v-model="numero"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="mes">Mes:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="mes"
-              name="mes"
-              v-model="mes"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="anio">Año:</label>
-            <input
-              type="number"
-              class="form-control"
-              id="anio"
-              name="anio"
-              v-model="anio"
-            />
-          </div>
-          <br>
-          <button
-            type="button"
-            class="btn btn-success"
-            v-on:click="modificar()"
-          >
-            Grabar
-          </button>
-        </form> -->
         <form>
           <div class="row g-3">
             <div class="col-12">
@@ -127,16 +60,34 @@
                 v-model="numero"
               />
             </div>
+
             <div class="col-md-4">
               <label for="mes" class="form-label">Mes: </label>
-              <input
-                type="text"
-                class="form-control"
+              <select
+                class="form-select"
+                required
+                aria-label="Mes: "
                 id="mes"
                 name="mes"
                 v-model="mes"
-              />
+              >
+                <option value="">Mes de publicación</option>
+                <option value="Enero">Enero</option>
+                <option value="Febrero">Febrero</option>
+                <option value="Marzo">Marzo</option>
+                <option value="Abril">Abril</option>
+                <option value="Mayo">Mayo</option>
+                <option value="Junio">Junio</option>
+                <option value="Julio">Julio</option>
+                <option value="Agosto">Agosto</option>
+                <option value="Septiembre">Septiembre</option>
+                <option value="Octubre">Octubre</option>
+                <option value="Noviembre">Noviembre</option>
+                <option value="Diciembre">Diciembre</option>
+              </select>
+              <div class="invalid-feedback">Elija un mes de publicación</div>
             </div>
+
             <div class="col-md-4">
               <label for="anio" class="form-label">Año: </label>
               <input
@@ -151,7 +102,7 @@
             <div class="col-12">
               <button
                 type="button"
-                class="btn btn-success"
+                class="btn btn-secondary"
                 v-on:click="modificar()"
               >
                 Grabar
@@ -162,35 +113,8 @@
       </div>
       <br />
     </main>
-    <footer>
-      <div class="container-fluid" style="background-color: #f39ca3">
-        <div class="row" style="height: 50px">
-          <div
-            class="col-6 col-sm-6 col-md-3 align-items-start my-auto text-dark ml-3"
-          >
-            <h6 class="my-auto" style="color: black; margin-left: 15px">
-              Centro de Documentación
-            </h6>
-            <div class="w-100"></div>
-            <h6 class="my-auto" style="color: black; margin-left: 15px">
-              <strong
-                >Biblioteca&nbsp;&nbsp;&nbsp;&nbsp;FADU&nbsp;&nbsp;-&nbsp;&nbsp;UBA</strong
-              >
-            </h6>
-          </div>
-
-          <div class="d-none d-md-block col-md-7"></div>
-
-          <div class="col align-items-end my-auto text-dark">
-            <p
-              class="my-auto text-right"
-              style="color: black; margin-right: 1rem"
-            >
-              <strong>.UBA</strong>fadu
-            </p>
-          </div>
-        </div>
-      </div>
+    <footer id="footer">
+      <!-- footer aqui -->
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
     <script

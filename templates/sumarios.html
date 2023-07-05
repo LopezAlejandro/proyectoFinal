@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Sumarios de Nuestra Arquitectura</title>
+    <title>Nuestra Arquitectura - Listado</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -13,6 +13,15 @@
       integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="../css/estilo.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
   </head>
   <body>
     <header id="header">
@@ -21,10 +30,9 @@
     <main>
       <div id="app" class="container">
         <h1>Sumarios</h1>
-        <br />
-        <a class="btn btn-primary" href="../templates/producto_nuevo.html"
+        <!-- <a class="btn btn-primary" href="../templates/producto_nuevo.html"
           >Nuevo</a
-        >
+        > -->
         <br /><br />
         <div v-if="error">
           <p>Lo sentimos , ........</p>
@@ -35,7 +43,53 @@
             <p>Cargando .....</p>
           </section>
           <section v-else>
-            <div class="table-responsive">
+            <div class="container-fluid mt-4">
+              <!-- <div v-else="sumarios.length >0"> -->
+              <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                  <thead class="table-dark">
+                    <tr>
+                      <th scope="col" class="col-sm-1">Id</th>
+                      <th scope="col" class="col-sm-2">Autor</th>
+                      <th scope="col" class="col-sm-5">Titulo</th>
+                      <th scope="col" class="col-sm-1">Número</th>
+                      <th scope="col" class="col-sm-1">Mes</th>
+                      <th scope="col" class="col-sm-1">Año</th>
+                      <th scope="col" class="col-sm-1">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="" v-for="sumario in sumarios">
+                      <td scope="row">{{sumario.id}}</td>
+                      <td>{{sumario.autor}}</td>
+                      <td>{{sumario.titulo}}</td>
+                      <td>{{sumario.numero}}</td>
+                      <td>{{sumario.mes}}</td>
+                      <td>{{sumario.anio}}</td>
+                      <td>
+                        <a
+                          class="btn btn-primary btn-sm"
+                          :href="'./producto_update.html?id='+ sumario.id"
+                          role="button"
+                        >
+                          <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <button
+                          type="button"
+                          class="btn btn-danger btn-sm"
+                          v-on:click="eliminar(sumario.id)"
+                        >
+                          <i class="bi bi-trash3-fill"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- </div> -->
+            </div>
+
+            <!-- <div class="table-responsive">
               <table class="table table-bordered">
                 <thead>
                   <tr>
@@ -73,13 +127,13 @@
                   </tr>
                 </tbody>
               </table>
-            </div>
+            </div> -->
           </section>
         </div>
       </div>
     </main>
-    <footer>
-      <!-- place footer here -->
+    <footer id="footer">
+      <!-- footer aqui -->
     </footer>
     <script>
       <!--Link de Bootstrap-->

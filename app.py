@@ -51,9 +51,9 @@ ma = Marshmallow(app): Se crea un objeto ma de la clase Marshmallow, que se util
 # URI de la BD == Driver de la BD://user:password@UrlBD/nombreBD
 # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:root@localhost/proyecto"
 
-#app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://proyecto:s4r4t0g4@localhost/proyecto"
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://proyecto:salamandra@localhost/proyecto"
-#app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://alopez:amat2012@alopez.mysql.pythonanywhere-services.com/alopez$default"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://proyecto:s4r4t0g4@localhost/proyecto"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://proyecto:salamandra@localhost/proyecto"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://alopez:amat2012@alopez.mysql.pythonanywhere-services.com/alopez$default"
 
 # Configura el seguimiento de modificaciones de SQLAlchemy a False para mejorar el rendimiento
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -112,17 +112,17 @@ class SumarioSchema(ma.Schema):
         fields = ("id", "autor", "titulo", "numero", "mes", "anio")
 
 
-sumario_schema = SumarioSchema()  # Objeto para serializar/deserializar un producto
+sumario_schema = SumarioSchema()  # Objeto para serializar/deserializar un sumario
 sumarios_schema = SumarioSchema(
     many=True
-)  # Objeto para serializar/deserializar múltiples productos
+)  # Objeto para serializar/deserializar múltiples sumarios
 
 """
-Este código define un endpoint que permite obtener todos los productos de la base de datos y los devuelve como un JSON en respuesta a una solicitud GET a la ruta /productos.
-@app.route("/productos", methods=["GET"]): Este decorador establece la ruta /productos para este endpoint y especifica que solo acepta solicitudes GET.
-def get_Productos(): Esta es la función asociada al endpoint. Se ejecuta cuando se realiza una solicitud GET a la ruta /productos.
-all_productos = Producto.query.all(): Se obtienen todos los registros de la tabla de productos mediante la consulta Producto.query.all(). Esto se realiza utilizando el modelo Producto que representa la tabla en la base de datos. El método query.all() heredado de db.Model se utiliza para obtener todos los registros de la tabla.
-result = productos_schema.dump(all_productos): Los registros obtenidos se serializan en formato JSON utilizando el método dump() del objeto productos_schema. El método dump() heredado de ma.Schema se utiliza para convertir los objetos Python en representaciones JSON.
+Este código define un endpoint que permite obtener todos los sumarios de la base de datos y los devuelve como un JSON en respuesta a una solicitud GET a la ruta /sumarios.
+@app.route("/sumarios", methods=["GET"]): Este decorador establece la ruta /sumarios para este endpoint y especifica que solo acepta solicitudes GET.
+def get_Sumarios(): Esta es la función asociada al endpoint. Se ejecuta cuando se realiza una solicitud GET a la ruta /sumarios.
+all_sumarios = Sumario.query.all(): Se obtienen todos los registros de la tabla de sumarios mediante la consulta Sumario.query.all(). Esto se realiza utilizando el modelo Sumario que representa la tabla en la base de datos. El método query.all() heredado de db.Model se utiliza para obtener todos los registros de la tabla.
+result = sumarios_schema.dump(all_sumarios): Los registros obtenidos se serializan en formato JSON utilizando el método dump() del objeto sumarios_schema. El método dump() heredado de ma.Schema se utiliza para convertir los objetos Python en representaciones JSON.
 return jsonify(result): El resultado serializado en formato JSON se devuelve como respuesta al cliente utilizando la función jsonify() de Flask. Esta función envuelve el resultado en una respuesta HTTP con el encabezado Content-Type establecido como application/json.
 
 """
@@ -131,13 +131,13 @@ return jsonify(result): El resultado serializado en formato JSON se devuelve com
 @app.route("/sumario", methods=["GET"])
 def get_Sumarios():
     """
-    Endpoint para obtener todos los productos de la base de datos.
+    Endpoint para obtener todos los sumarios de la base de datos.
 
-    Retorna un JSON con todos los registros de la tabla de productos.
+    Retorna un JSON con todos los registros de la tabla de sumarios.
     """
     all_sumarios = (
         Sumario.query.all()
-    )  # Obtiene todos los registros de la tabla de productos
+    )  # Obtiene todos los registros de la tabla de sumarios
     result = sumarios_schema.dump(
         all_sumarios
     )  # Serializa los registros en formato JSON
@@ -168,22 +168,20 @@ update_producto(id):
 @app.route("/sumario/<id>", methods=["GET"])
 def get_sumario(id):
     """
-    Endpoint para obtener un producto específico de la base de datos.
+    Endpoint para obtener un sumario específico de la base de datos.
 
-    Retorna un JSON con la información del producto correspondiente al ID proporcionado.
+    Retorna un JSON con la información del sumario correspondiente al ID proporcionado.
     """
-    sumario = Sumario.query.get(
-        id
-    )  # Obtiene el producto correspondiente al ID recibido
-    return sumario_schema.jsonify(sumario)  # Retorna el JSON del producto
+    sumario = Sumario.query.get(id)  # Obtiene el sumario correspondiente al ID recibido
+    return sumario_schema.jsonify(sumario)  # Retorna el JSON del sumario
 
 
 @app.route("/sumario/<id>", methods=["DELETE"])
 def delete_sumario(id):
     """
-    Endpoint para eliminar un producto de la base de datos.
+    Endpoint para eliminar un sumario de la base de datos.
 
-    Elimina el producto correspondiente al ID proporcionado y retorna un JSON con el registro eliminado.
+    Elimina el sumario correspondiente al ID proporcionado y retorna un JSON con el registro eliminado.
     """
     sumario = Sumario.query.get(
         id
@@ -193,51 +191,45 @@ def delete_sumario(id):
     return sumario_schema.jsonify(sumario)  # Retorna el JSON del producto eliminado
 
 
-@app.route("/sumario", methods=["POST"])  # Endpoint para crear un producto
+@app.route("/sumario", methods=["POST"])  # Endpoint para crear un sumario
 def create_sumario():
     """
-    Endpoint para crear un nuevo producto en la base de datos.
+    Endpoint para crear un nuevo sumario en la base de datos.
 
-    Lee los datos proporcionados en formato JSON por el cliente y crea un nuevo registro de producto en la base de datos.
-    Retorna un JSON con el nuevo producto creado.
+    Lee los datos proporcionados en formato JSON por el cliente y crea un nuevo registro en la base de datos.
+    Retorna un JSON con el nuevo sumario creado.
     """
-    autor = request.json[
-        "autor"
-    ]  # Obtiene el nombre del producto del JSON proporcionado
-    titulo = request.json[
-        "titulo"
-    ]  # Obtiene el precio del producto del JSON proporcionado
+    autor = request.json["autor"]  # Obtiene el autor del JSON proporcionado
+    titulo = request.json["titulo"]  # Obtiene el titulo del JSON proporcionado
     numero = request.json[
         "numero"
-    ]  # Obtiene el stock del producto del JSON proporcionado
-    mes = request.json["mes"]  # Obtiene la imagen del producto del JSON proporcionado
-    anio = request.json["anio"]  # Obtiene la imagen del producto del JSON proporcionado
+    ]  # Obtiene el numero de revista del JSON proporcionado
+    mes = request.json["mes"]  # Obtiene el mes de publicacion del JSON proporcionado
+    anio = request.json["anio"]  # Obtiene el año de la revista del JSON proporcionado
 
     new_sumario = Sumario(
         autor, titulo, numero, mes, anio
-    )  # Crea un nuevo objeto Producto con los datos proporcionados
+    )  # Crea un nuevo objeto Sumario con los datos proporcionados
     db.session.add(
         new_sumario
-    )  # Agrega el nuevo producto a la sesión de la base de datos
+    )  # Agrega el nuevo sumario a la sesión de la base de datos
     db.session.commit()  # Guarda los cambios en la base de datos
     return sumario_schema.jsonify(
         new_sumario
     )  # Retorna el JSON del nuevo producto creado
 
 
-@app.route("/sumario/<id>", methods=["PUT"])  # Endpoint para actualizar un producto
+@app.route("/sumario/<id>", methods=["PUT"])  # Endpoint para actualizar un sumario
 def update_sumario(id):
     """
-    Endpoint para actualizar un producto existente en la base de datos.
+    Endpoint para actualizar un registro existente en la base de datos.
 
-    Lee los datos proporcionados en formato JSON por el cliente y actualiza el registro del producto con el ID especificado.
-    Retorna un JSON con el producto actualizado.
+    Lee los datos proporcionados en formato JSON por el cliente y actualiza el registro con el ID especificado.
+    Retorna un JSON con el registro actualizado.
     """
-    sumario = Sumario.query.get(
-        id
-    )  # Obtiene el producto existente con el ID especificado
+    sumario = Sumario.query.get(id)  # Obtiene el registrocon el ID especificado
 
-    # Actualiza los atributos del producto con los datos proporcionados en el JSON
+    # Actualiza los atributos del registro con los datos proporcionados en el JSON
     sumario.autor = request.json["autor"]
     sumario.titulo = request.json["titulo"]
     sumario.numero = request.json["numero"]
@@ -245,41 +237,51 @@ def update_sumario(id):
     sumario.anio = request.json["anio"]
 
     db.session.commit()  # Guarda los cambios en la base de datos
-    return sumario_schema.jsonify(sumario)  # Retorna el JSON del producto actualizado
+    return sumario_schema.jsonify(sumario)  # Retorna el JSON del registro actualizado
+
 
 @app.route("/sumario_a/<autor>", methods=["GET"])
 def get_sumarios_autor(autor):
     """
-    Endpoint para obtener un producto específico de la base de datos.
+    Endpoint para obtener uno o mas registros de la base de datos.
 
-    Retorna un JSON con la información del producto correspondiente al ID proporcionado.
+    Retorna un JSON con la información del/los registros correspondiente al nombre del autor proporcionado.
+
+    Realiza la consulta con un LIKE case insensitive en el campo autor.
     """
-    #autor_sumarios = db.session.execute(db.select(Sumario).where(Sumario.autor.ilike('ale')))
-    autor_sumarios = Sumario.query.filter(Sumario.autor.ilike('%'+autor+'%'))
-    #(Sumario.query.filter_by(autor=autor).all)
+
+    autor_sumarios = Sumario.query.filter(Sumario.autor.ilike("%" + autor + "%"))
+
     result = sumarios_schema.dump(autor_sumarios)
-         # Obtiene el producto correspondiente al ID recibido
+    # Obtiene registros con el autor correspondiente
     return jsonify(result)  # Retorna el JSON del producto
+
 
 @app.route("/sumario_t/<titulo>", methods=["GET"])
 def get_sumarios_titulo(titulo):
     """
-    Endpoint para obtener un producto específico de la base de datos.
+    Endpoint para obtener uno o mas registros de la base de datos.
 
-    Retorna un JSON con la información del producto correspondiente al ID proporcionado.
+    Retorna un JSON con la información del/los registros correspondiente al titulo de la nota proporcionado.
+    Realiza la consulta con un LIKE case insensitive en el campo titulo.
     """
-    #autor_sumarios = db.session.execute(db.select(Sumario).where(Sumario.autor.ilike('ale')))
-    titulo_sumarios = Sumario.query.filter(Sumario.titulo.ilike('%'+titulo+'%'))
-    #(Sumario.query.filter_by(autor=autor).all)
+
+    titulo_sumarios = Sumario.query.filter(Sumario.titulo.ilike("%" + titulo + "%"))
+
     result = sumarios_schema.dump(titulo_sumarios)
-         # Obtiene el producto correspondiente al ID recibido
+    # Obtiene registros con el titulo requerido
     return jsonify(result)  # Retorna el JSON del producto
+
 
 """
 Este código es el programa principal de la aplicación Flask. Se verifica si el archivo actual está siendo ejecutado directamente y no importado como módulo. Luego, se inicia el servidor Flask en el puerto 5000 con el modo de depuración habilitado. Esto permite ejecutar la aplicación y realizar pruebas mientras se muestra información adicional de depuración en caso de errores.
 
 """
 # Programa Principal
-if __name__ == "__main__":
+#if __name__ == "__main__":
     # Ejecuta el servidor Flask en el puerto 5000 en modo de depuración
-    app.run(debug=True, port=5000)
+#    app.run(debug=True, port=5000)
+
+@app.route('/')
+def hello_world():
+    return 'Hello from Flask!'

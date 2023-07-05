@@ -10,7 +10,7 @@ html, body {
  } 
 
 body {
-  font-size: 1.1em;
+  font-size: 1em;
   line-height: 1.5;
   color: #333;
   background-color: hsl(62, 42%, 86%);
@@ -42,4 +42,16 @@ body {
 .btn-eliminar {
   background-color: #dc3545;
   border-color: #dc3545;
+}
+
+.footer-container { 
+  background-color: #f39ca3;
+}
+
+.footer-row {
+  height: 50px;
+}
+footer h6 {
+  color: black; 
+  margin-left: 15px
 }

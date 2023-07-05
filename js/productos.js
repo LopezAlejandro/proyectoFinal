@@ -4,7 +4,7 @@ data() {
 return {
 sumarios:[],
 //url:'http://127.0.0.1:5000/sumario',
-// si el backend esta corriendo local usar localhost 5000(si no lo subieron a pythonanywhere)
+// si el backend esta corriendo local usar localhost 5000
 url:'https://alopez.pythonanywhere.com/sumario', // si ya lo subieron a pythonanywhere
 error:false,
 cargando:true,
