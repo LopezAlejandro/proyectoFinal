@@ -16,15 +16,16 @@
     />
     <link rel="stylesheet" href="../css/estilo.css" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0
+    rel="stylesheet" />
+    <link
       rel="stylesheet"
-    />  
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <script
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <!-- <script
       src="https://kit.fontawesome.com/324dfb2411.js"
       crossorigin="anonymous"
-    ></script>
-
+    ></script> -->
   </head>
 
   <body>
@@ -62,7 +63,7 @@
           titulo
         </label>
         <br /><br />
-        <div class="container mt-4">
+        <div class="container-fluid mt-4">
           <template v-if="sumarios.length==0 && searchF">
             <p>No hay resultados</p>
           </template>
@@ -89,14 +90,18 @@
                     <td>{{sumario.mes}}</td>
                     <td>{{sumario.anio}}</td>
                     <td>
-                      <a class="btn btn-primary btn-sm" 
-                        :href="'./producto_update.html?id='+ sumario.id" role="button">
+                      <a
+                        class="btn btn-primary btn-sm"
+                        :href="'./producto_update.html?id='+ sumario.id"
+                        role="button"
+                      >
                         <i class="bi bi-pencil-square"></i>
                       </a>
                       <button
                         type="button"
                         class="btn btn-danger btn-sm"
-                        v-on:click="eliminar(sumario.id)">
+                        v-on:click="eliminar(sumario.id)"
+                      >
                         <i class="bi bi-trash3-fill"></i>
                       </button>
                     </td>
@@ -108,35 +113,38 @@
         </div>
       </div>
     </main>
-    <br><br>
+    <br /><br />
     <footer>
-          <div class="footer-dark">
-        <footer>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6 item text">
-                        <h3>Centro de Documentación - Biblioteca.</h3>
-                        <p>"Prof.Arq. Manuel Ignacio Net"</p>
-                        <p>Facultad de Arquitectura, Diseño y Urbanismo (FADU)</p>
-                        <p>Ciudad Universitaria Pabellón 3 Planta Baja</p>
-                    </div>
-                    <div class="col-sm-6 col-md-3 item">
-                    </div>
-                    <div class="col-sm-6 col-md-3 item">
-                    </div>
-                    
-                    <div class="col item social">
-                      <a href="https://www.facebook.com" target="_blank"><i class="fa fa-facebook"></i></a>
-                      <a href="https://www.twitter.com" target="_blank"><i class="fa fa-twitter"></i></a>
-                      <a href="https://www.instagram.com" target="_blank"><i class="fa-brands fa-square-instagram"></i></a>
-                    </div>
-                </div>
-                
-            </div>
-        </footer>
-    </div>
+      <div class="container-fluid" style="background-color: #f39ca3">
+        <div class="row" style="height: 50px">
+          <div
+            class="col-6 col-sm-6 col-md-3 align-items-start my-auto text-dark ml-3"
+          >
+            <h6 class="my-auto" style="color: black; margin-left: 15px">
+              Centro de Documentación
+            </h6>
+            <div class="w-100"></div>
+            <h6 class="my-auto" style="color: black; margin-left: 15px">
+              <strong
+                >Biblioteca&nbsp;&nbsp;&nbsp;&nbsp;FADU&nbsp;&nbsp;-&nbsp;&nbsp;UBA</strong
+              >
+            </h6>
+          </div>
+
+          <div class="d-none d-md-block col-md-7"></div>
+
+          <div class="col align-items-end my-auto text-dark">
+            <p
+              class="my-auto text-right"
+              style="color: black; margin-right: 1rem"
+            >
+              <strong>.UBA</strong>fadu
+            </p>
+          </div>
+        </div>
+      </div>
     </footer>
-    
+
     <script>
       <!--Link de Bootstrap-->
       src =

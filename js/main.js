@@ -10,7 +10,7 @@ document.getElementById(
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="./buscar.js">Buscar</a>
+        <a class="nav-link active" aria-current="page" href="./buscar.html">Buscar</a>
         <a class="nav-link disabled" href="../templates/producto_nuevo.html">Alta de Sumarios</a>
       </div>
     </div>

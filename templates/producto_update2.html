@@ -17,12 +17,12 @@
     <link rel="stylesheet" href="../css/estilo.css" />
   </head>
   <body>
-    <header id="header">
+    <header id="header"><link rel="stylesheet" href="../css/estilo.css" />
       <!-- place navbar here -->
     </header>
     <main>
       <div class="container" id="app">
-        <!-- <form>
+        <form>
           <h2>Editar Sumario</h2>
           <br />
 
@@ -69,7 +69,6 @@
               v-model="mes"
             />
           </div>
-
           <div class="form-group">
             <label for="anio">Año:</label>
             <input
@@ -80,87 +79,15 @@
               v-model="anio"
             />
           </div>
-          <br>
           <button
-            type="button"
-            class="btn btn-success"
+            type="buttton"
+            class="btn btn-primary"
             v-on:click="modificar()"
           >
-            Grabar
+            Guardar
           </button>
-        </form> -->
-        <form>
-          <div class="row g-3">
-            <div class="col-12">
-              <label for="titulo" class="form-label"
-                >Titulo del articulo:
-              </label>
-              <input
-                type="text"
-                class="form-control"
-                id="titulo"
-                name="titulo"
-                v-model="titulo"
-              />
-            </div>
-
-            <div class="col-12">
-              <label for="autor" class="form-label">Autor: </label>
-              <input
-                type="text"
-                class="form-control"
-                id="autor"
-                name="autor"
-                v-model="autor"
-              />
-            </div>
-
-            <div class="col-md-4">
-              <label for="numero" class="form-label"
-                >Nro. de la revista:
-              </label>
-              <input
-                type="number"
-                class="form-control"
-                id="numero"
-                name="numero"
-                v-model="numero"
-              />
-            </div>
-            <div class="col-md-4">
-              <label for="mes" class="form-label">Mes: </label>
-              <input
-                type="text"
-                class="form-control"
-                id="mes"
-                name="mes"
-                v-model="mes"
-              />
-            </div>
-            <div class="col-md-4">
-              <label for="anio" class="form-label">Año: </label>
-              <input
-                type="number"
-                class="form-control"
-                id="anio"
-                name="anio"
-                v-model="anio"
-              />
-            </div>
-
-            <div class="col-12">
-              <button
-                type="button"
-                class="btn btn-success"
-                v-on:click="modificar()"
-              >
-                Grabar
-              </button>
-            </div>
-          </div>
         </form>
       </div>
-      <br />
     </main>
     <footer>
       <div class="container-fluid" style="background-color: #f39ca3">
